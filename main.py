@@ -9,10 +9,10 @@ class TestNet(nn.Module):
     def __init__(self):
         super(TestNet, self).__init__()
 
-        self.conv0 = nn.Conv2d(in_channels=1, out_channels=128, kernel_size=(3, 3))
-        self.conv1 = nn.Conv2d(in_channels=128, out_channels=256, kernel_size=(3, 3))
-        self.conv2 = nn.Conv2d(in_channels=256, out_channels=512, kernel_size=(3, 3))
-        self.conv3 = nn.Conv2d(in_channels=512, out_channels=1024, kernel_size=(3, 3))
+        self.conv0 = nn.Conv2d(in_channels=1, out_channels=32, kernel_size=(3, 3))
+        self.conv1 = nn.Conv2d(in_channels=32, out_channels=64, kernel_size=(3, 3))
+        self.conv2 = nn.Conv2d(in_channels=64, out_channels=128, kernel_size=(3, 3))
+        self.conv3 = nn.Conv2d(in_channels=128, out_channels=256, kernel_size=(3, 3))
 
     def forward(self, x):
         x = F.relu(self.conv0(x))
@@ -40,6 +40,6 @@ if __name__ == '__main__':
         for i in range(100):
             print('processing...', i)
             if use_dynamic_size:
-                model(torch.rand(1, 1, 2000 + 10 * i , 200))
+                model(torch.rand(1, 1, 2000 + 10 * i , 200).to(device))
             else:
-                model(torch.rand(1, 1, 2000, 200))
+                model(torch.rand(1, 1, 2000, 200).to(device))
